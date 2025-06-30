@@ -11,7 +11,7 @@ import HomeView from './views/HomeView';
 import VideoIntro from './components/VideoIntro';
 import OrderNow from './components/OrderNow';
 import { useEffect, useState } from 'react';
-import { CartApi, MenuApi, Configuration } from './api';
+import { MenuApi, Configuration } from './api';
 import type { MenuItem } from './components/OrderNow';
 import type { Cart } from './api/models';
 import CheckoutView from "./views/CheckoutView";
@@ -22,16 +22,34 @@ function AppContent() {
   const [showIntro, setShowIntro] = useState(location.pathname === '/');
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [cart, setCart] = useState<Cart[]>([]);
+  const [user, setUser] = useState<{ email: string } | null>(() => {
+  const storedUser = localStorage.getItem("user");
+  return storedUser ? JSON.parse(storedUser) : null;
+});
 
-  const refreshCart = async () => {
-  try {
-    const api = new CartApi(new Configuration({ basePath: 'http://localhost:8000' }));
-    const data = await api.menuCartList();
-    setCart(data); // This will update the shared cart
-  } catch (error) {
-    console.error('Failed to fetch cart:', error);
+  useEffect(() => {
+  const storedUser = localStorage.getItem("user");
+  if (storedUser) {
+    setUser(JSON.parse(storedUser));
   }
-};
+}, []);
+
+  useEffect(() => {
+  const storedUser = localStorage.getItem("user");
+  if (storedUser) {
+    setUser(JSON.parse(storedUser));
+  }
+}, []);
+
+//   const refreshCart = async () => {
+//   try {
+//     const api = new CartApi(new Configuration({ basePath: 'http://localhost:8000' }));
+//     const data = await api.menuCartList();
+//     setCart(data); // This will update the shared cart
+//   } catch (error) {
+//     console.error('Failed to fetch cart:', error);
+//   }
+// };
 
   // Hide intro video on non-home routes
   useEffect(() => {
@@ -78,7 +96,6 @@ function AppContent() {
       menuItems={menuItems}
       cart={cart}   
       setCart={setCart} 
-      refreshCart={refreshCart}  
     />
   }
 />
@@ -88,7 +105,8 @@ function AppContent() {
     <CheckoutView
       cart={cart}            
       setCart={setCart}  
-      refreshCart={refreshCart} 
+      user={user}
+      setUser={setUser}
     />
   }
 />

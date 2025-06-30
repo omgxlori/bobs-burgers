@@ -7,9 +7,11 @@ import type { Cart } from "../api/models";
 type CheckoutProps = {
   cart: Cart[];
   setCart: React.Dispatch<React.SetStateAction<Cart[]>>;
+  user: { email: string; firstName?: string } | null;
+setUser: React.Dispatch<React.SetStateAction<{ email: string; firstName?: string } | null>>;
 };
 
-const Checkout = ({ cart, setCart }: CheckoutProps) => {
+const Checkout = ({ cart, setCart, user, setUser }: CheckoutProps) => {
   const [isForHere, setIsForHere] = useState(true);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false);
@@ -23,6 +25,11 @@ const Checkout = ({ cart, setCart }: CheckoutProps) => {
     birthday: "",
     wantsNewsletter: false,
   });
+  const [loginData, setLoginData] = useState({
+  email: "",
+  password: "",
+});
+
 
   useEffect(() => {
     const api = new CartApi(
@@ -65,6 +72,43 @@ const Checkout = ({ cart, setCart }: CheckoutProps) => {
     }));
   };
 
+  const handleLoginChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { name, value } = e.target;
+  setLoginData((prev) => ({ ...prev, [name]: value }));
+};
+
+const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  const payload = {
+  email: loginData.email,
+  password: loginData.password,
+};
+
+  try {
+    const response = await fetch("http://localhost:8000/login/", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(payload),
+});
+
+    if (!response.ok) {
+      const errData = await response.json();
+      alert("Login failed: " + JSON.stringify(errData));
+      return;
+    }
+
+    const user = await response.json();
+    setUser({ email: user.email, firstName: user.first_name });
+    localStorage.setItem("user", JSON.stringify(user));
+    setShowLoginForm(false);
+  } catch (error) {
+    console.error("Login error:", error);
+    alert("Login failed. Try again.");
+  }
+};
+
+
   const handleSignupSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   const form = e.currentTarget;
@@ -76,10 +120,12 @@ const Checkout = ({ cart, setCart }: CheckoutProps) => {
     phone: formData.get("phone") ?? "",
     birthday: formData.get("birthday") ?? null,
     opted_into_eblast: formData.get("opted_into_eblast") === "on",
+    first_name: formData.get("firstName") ?? "",
+    last_name: formData.get("lastName") ?? "",
   };
 
   try {
-    const response = await fetch("http://localhost:8000/menu/users/", {
+    const response = await fetch("http://localhost:8000/users/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -91,8 +137,23 @@ const Checkout = ({ cart, setCart }: CheckoutProps) => {
       alert("Something went wrong: " + JSON.stringify(errData));
     } else {
       alert("Account created successfully!");
-      form.reset(); // optional: clear form
-      setShowSignupForm(false); // hide form
+      form.reset(); 
+      setShowSignupForm(false);
+
+      setUser({
+  email: payload.email as string,
+  firstName: signupData.firstName,
+});
+
+localStorage.setItem(
+  "user",
+  JSON.stringify({
+    email: payload.email,
+    firstName: signupData.firstName,
+  })
+);
+
+
     }
   } catch (error) {
     console.error("Network error:", error);
@@ -204,6 +265,24 @@ const Checkout = ({ cart, setCart }: CheckoutProps) => {
           <span className={isForHere ? "inactive-label" : ""}>To Go</span>
         </div>
 
+{user ? (
+  <div className="welcome-box">
+    <h3>Welcome, {user.firstName || user.email}!</h3>
+    <button
+      onClick={() => {
+        localStorage.removeItem("user");
+        setUser(null);
+      }}
+      className="logout-btn"
+    >
+      Logout
+    </button>
+
+    <button className="place-order-btn">
+      Place Order
+    </button>
+  </div>
+) : (
         <div className="account-options">
           <p>
             Already have an account?{" "}
@@ -218,13 +297,23 @@ const Checkout = ({ cart, setCart }: CheckoutProps) => {
             </button>
           </p>
           {showLoginForm && (
-            <form className="checkout-form">
-              <label>Email:</label>
-              <input type="email" />
-              <label>Password:</label>
-              <input type="password" />
-              <button type="submit">Login</button>
-            </form>
+           <form className="checkout-form" onSubmit={handleLoginSubmit}>
+  <label>Email:</label>
+  <input
+    type="email"
+    name="email"
+    value={loginData.email}
+    onChange={handleLoginChange}
+  />
+  <label>Password:</label>
+  <input
+    type="password"
+    name="password"
+    value={loginData.password}
+    onChange={handleLoginChange}
+  />
+  <button type="submit">Login</button>
+</form>
           )}
 
           <p>
@@ -314,9 +403,11 @@ const Checkout = ({ cart, setCart }: CheckoutProps) => {
               </label>
 
               <button type="submit">Create Account</button>
+              console.log("rendered user:", user);
             </form>
           )}
         </div>
+)}
       </div>
     </div>
   );
