@@ -29,6 +29,7 @@ const Checkout = ({ cart, setCart, user, setUser }: CheckoutProps) => {
   email: "",
   password: "",
 });
+const [orderPlaced, setOrderPlaced] = useState(false);
 
 
   useEffect(() => {
@@ -56,7 +57,7 @@ const Checkout = ({ cart, setCart, user, setUser }: CheckoutProps) => {
             price: basePrice,
             category: cartItem.menuItem?.category ?? "",
             quantity,
-            toppings, // keep this for displaying
+            toppings,
           };
         });
         setCart(simplified);
@@ -161,6 +162,29 @@ localStorage.setItem(
   }
 };
 
+if (orderPlaced) {
+  return (
+    <div className="order-confirmation">
+      <h2>Your Order’s In!</h2>
+      <p>
+        Thanks for ordering. Please stand awkwardly by the counter until someone calls your name.
+      </p>
+      <img
+        src="https://images.steamusercontent.com/ugc/976605181074591227/96EB2FB1FBF1E57E723134A55E0254DB280A9E3A/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false"
+        alt="Tina dancing"
+        className="tina-gif"
+      />
+      <button
+        onClick={() => {
+          setOrderPlaced(false);
+        }}
+      >
+        Back to Menu
+      </button>
+    </div>
+  );
+}
+
 
   return (
     <div className="checkout-container">
@@ -246,6 +270,9 @@ localStorage.setItem(
 
           <p className="no-tax-joke">
             No tax. That’s our gift to you. Also our burden.
+            <br></br>
+We’re a cash-only restaurant — sorry, it’s 2008 forever in here.
+Once you place your order, please pay at the counter like it's the most important thing you'll do today.
           </p>
         </div>
       </div>
@@ -278,9 +305,16 @@ localStorage.setItem(
       Logout
     </button>
 
-    <button className="place-order-btn">
-      Place Order
-    </button>
+    <button
+  className="place-order-btn"
+  onClick={() => {
+    setOrderPlaced(true);
+    setCart([]);
+  }}
+>
+  Place Order
+</button>
+
   </div>
 ) : (
         <div className="account-options">

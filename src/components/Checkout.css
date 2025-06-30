@@ -135,3 +135,28 @@ input {
   padding-left: 1rem;
   margin: 0.25rem 0;
 }
+
+.order-confirmation {
+  text-align: center;
+  padding: 2rem;
+  color: #333;
+}
+
+.order-confirmation h2 {
+  font-size: 2rem;
+  color: #E41F62;
+}
+
+.order-confirmation p {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+
+.tina-gif {
+    display: flex;
+    flex-direction: column;
+  width: 300px;
+  max-width: 90%;
+  border-radius: 12px;
+  margin: 1rem auto;
+}

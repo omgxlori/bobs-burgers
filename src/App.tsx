@@ -58,12 +58,12 @@ function AppContent() {
     }
   }, [location.pathname, showIntro]);
 
-  // Fetch menu items once on load
+
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
         const api = new MenuApi(new Configuration({ basePath: 'http://localhost:8000' }));
-        const data = await api.menuList(); // adjust this if your endpoint differs
+        const data = await api.menuList();
         setMenuItems(data as unknown as MenuItem[]);
       } catch (error) {
         console.error('Failed to fetch menu:', error);
