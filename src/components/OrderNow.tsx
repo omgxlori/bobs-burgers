@@ -16,13 +16,12 @@ export type MenuItem = {
 
 type OrderNowProps = {
   menuItems: MenuItem[];
-  cart: MenuItem[];
-  setCart: React.Dispatch<React.SetStateAction<MenuItem[]>>;
+  cart: Cart[]; // ✅ correct
+  setCart: React.Dispatch<React.SetStateAction<Cart[]>>;
 };
 
 
-const OrderNow = ({ menuItems }: OrderNowProps) => {
-  const [cart, setCart] = useState<Cart[]>([]);
+const OrderNow = ({ menuItems, cart, setCart }: OrderNowProps) => {
   const [selectedBurger, setSelectedBurger] = useState<MenuItem | null>(null);
   const [selectedToppings, setSelectedToppings] = useState<MenuItem[]>([]);
   const [selectedFlavorItem, setSelectedFlavorItem] = useState<MenuItem | null>(

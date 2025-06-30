@@ -27,6 +27,7 @@ import {
  * @interface Cart
  */
 export interface Cart {
+    price: any;
     /**
      * 
      * @type {number}

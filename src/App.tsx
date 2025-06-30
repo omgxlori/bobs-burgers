@@ -23,6 +23,15 @@ function AppContent() {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [cart, setCart] = useState<Cart[]>([]);
 
+  const refreshCart = async () => {
+  try {
+    const api = new CartApi(new Configuration({ basePath: 'http://localhost:8000' }));
+    const data = await api.menuCartList();
+    setCart(data); // This will update the shared cart
+  } catch (error) {
+    console.error('Failed to fetch cart:', error);
+  }
+};
 
   // Hide intro video on non-home routes
   useEffect(() => {
@@ -67,8 +76,9 @@ function AppContent() {
   element={
     <OrderNow
       menuItems={menuItems}
-      cart={cart}             // ✅ pass down cart
-      setCart={setCart}       // ✅ pass down setter
+      cart={cart}   
+      setCart={setCart} 
+      refreshCart={refreshCart}  
     />
   }
 />
@@ -76,8 +86,9 @@ function AppContent() {
   path="/checkout"
   element={
     <CheckoutView
-      cart={cart}             // ✅ same here
-      setCart={setCart}       // ✅
+      cart={cart}            
+      setCart={setCart}  
+      refreshCart={refreshCart} 
     />
   }
 />
