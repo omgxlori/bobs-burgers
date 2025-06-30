@@ -31,7 +31,7 @@ useEffect(() => {
           id: cartItem.menuItem?.id ?? 0,
           name: cartItem.menuItem?.name ?? "",
           description: cartItem.menuItem?.description ?? "",
-          price: basePrice + toppingsPrice, // ✅ total item price
+          price: basePrice,
           category: cartItem.menuItem?.category ?? "",
           quantity,
           toppings, // keep this for displaying
@@ -52,37 +52,80 @@ useEffect(() => {
           <p>Your cart is empty!</p>
         ) : (
           <ul className="checkout-cart-list">
-            {cart.map((item, index) => (
-              <li key={index} className="checkout-cart-item">
-                <span>
-                  {item.name} — ${item.price} × {item.quantity ?? 1}
-                </span>
-                <button
-                  className="remove-btn"
-                  onClick={() => {
-                    const updatedCart = cart.filter((_, i) => i !== index);
-                    setCart(updatedCart);
-                  }}
-                >
-                  Remove
-                </button>
-              </li>
-            ))}
-          </ul>
+  {cart.map((item, index) => {
+    const basePrice = item.price;
+    const quantity = item.quantity ?? 1;
+    const toppings = item.toppings ?? [];
+
+    const toppingsTotal = toppings.reduce(
+      (sum: number, t: any) => sum + Number(t.price ?? 0),
+      0
+    );
+
+    const itemTotal = (basePrice + toppingsTotal) * quantity;
+
+    return (
+      <li key={index} className="checkout-cart-item">
+        <div className="item-details">
+          <strong>{item.name}</strong>
+          <div>Base Price: ${basePrice.toFixed(2)}</div>
+
+          {toppings.length > 0 && (
+            <div>
+              Toppings:
+              <ul className="topping-list">
+                {toppings.map((t: any, i: number) => (
+                  <li key={i}>
+                    {t.name} — ${Number(t.price ?? 0).toFixed(2)}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <div>Quantity: {quantity}</div>
+          <div className="item-total">
+            Item Total: ${itemTotal.toFixed(2)}
+          </div>
+        </div>
+
+        <button
+          className="remove-btn"
+          onClick={() => {
+            const updatedCart = cart.filter((_, i) => i !== index);
+            setCart(updatedCart);
+          }}
+        >
+          Remove
+        </button>
+      </li>
+    );
+  })}
+</ul>
+
         )}
 
         <div className="cart-summary">
-          <p>
-            Total: $
-            {cart.reduce(
-              (sum, item) => sum + item.price * (item.quantity ?? 1),
-              0
-            )}
-          </p>
-          <p className="no-tax-joke">
-            No tax. That’s our gift to you. Also our burden.
-          </p>
-        </div>
+  <p>
+    Total: $
+    {cart.reduce((sum, item) => {
+      const base = item.price;
+      const quantity = item.quantity ?? 1;
+      const toppings = item.toppings ?? [];
+
+      const toppingsTotal = toppings.reduce(
+        (toppingSum: number, t: any) => toppingSum + Number(t.price ?? 0),
+        0
+      );
+
+      return sum + (base + toppingsTotal) * quantity;
+    }, 0).toFixed(2)}
+  </p>
+
+  <p className="no-tax-joke">
+    No tax. That’s our gift to you. Also our burden.
+  </p>
+</div>
       </div>
 
       {/* Right side - Form and Toggle */}

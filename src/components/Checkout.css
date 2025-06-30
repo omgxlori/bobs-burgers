@@ -117,5 +117,21 @@ input {
 .checkout-item-details {
     color: black;
     display: flex;
-    
+
+}
+
+.checkout-cart-item {
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.item-details {
+  margin-bottom: 0.5rem;
+  color: black;
+}
+
+.topping-list {
+  list-style: none;
+  padding-left: 1rem;
+  margin: 0.25rem 0;
 }
