@@ -1,0 +1,333 @@
+.menu-container {
+  background-color: white;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  border: 10px solid #E41F62;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+ul.menu-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  list-style: none;
+}
+
+.logo {
+    justify-content: center;
+}
+
+.burger-of-the-day-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.burger-of-the-day {
+    background-color: white;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 70px;
+    align-self: flex-start;
+    margin-top: -2rem;
+}
+
+.burger-of-the-day-price {
+    border: 4px solid red;
+    border-radius: 30px;
+}
+
+.burger-details {
+    margin-top: -60px;
+}
+
+.disclaimer {
+    font-size: 0.8rem;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.burger-image {
+    width: 50%;
+    height: auto;
+}
+
+h2 {
+    color: black;
+}
+
+h3 {
+    color: red;
+    margin-top: -15px;
+}
+
+p {
+    color: black;
+    margin-top: -15px;
+}
+
+.item-name {
+    color: black;
+}
+
+.item-price {
+    color: black;
+}
+
+.dots {
+  flex-grow: 1;
+  height: 1px;
+  border-bottom: 1px dotted black;
+  margin: 0 0.5rem;
+}
+
+.topping-section,
+.side-dishes-section {
+  border: 4px solid red;
+  border-radius: 30px;
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: auto;
+}
+
+.toppings-and-sides {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    width: auto;
+}
+
+ul.menu-list {
+    align-items: center;
+}
+
+.family {
+    width: 80%;
+    padding-left: 80px;
+}
+
+.section-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.drink-section {
+  border: 4px solid red;
+  border-radius: 30px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1;
+  width: 100%;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  flex: 1;
+}
+
+.item-details {
+    display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.item-description {
+  font-size: 0.85rem;
+  color: #444;
+  margin: 0.2rem 0 0 0;
+  padding-left: 0.5rem;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  flex: 1;
+}
+
+.specialty-burger-section {
+ border: 4px solid red;
+  border-radius: 30px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1;
+  width: auto;
+}
+
+.about-bobs-burgers {
+  border: 4px solid red;
+  border-radius: 30px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1;
+  width: auto;
+  color: black;
+  background-color: yellow;
+  font-weight: 600;
+}
+
+.side-dishes-section {
+  width: 91%;
+}
+
+.drink-section {
+  width: 110%;
+}
+
+.meet-the-belchers {
+  margin-top: 3rem;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.belcher-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  scroll-snap-type: x mandatory;
+  justify-content: center;
+}
+
+.belcher-card {
+  flex: 0 0 auto;
+  width: 180px;
+  background: white;
+  border: 4px solid #e41f62;
+  border-radius: 20px;
+  padding: 1rem;
+  text-align: center;
+  scroll-snap-align: start;
+  transition: transform 0.3s;
+}
+
+.belcher-card:hover {
+  transform: scale(1.05);
+}
+
+.belcher-img {
+  width: 100%;
+  height: auto;
+  margin: 0 auto 1rem;
+}
+
+.quote {
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.recommends {
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.address, .hours {
+  margin-top: 10px;
+}
+
+.boycott-jimmy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  background-color: #fff;
+  border: 3px solid green;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 2rem auto;
+  max-width: 1000px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  font-family: sans-serif;
+}
+
+.boycott-jimmy .text-section {
+  flex: 1;
+  text-align: center;
+}
+
+.boycott-jimmy h2 {
+  color: black;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.boycott-jimmy p {
+  margin: 0.5rem 0;
+  line-height: 1.4;
+}
+
+.boycott-jimmy .pesto-image {
+  width: 300px;
+  max-width: 40%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.boycott-jimmy .fine-print {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+.jimmy-pesto {
+  width: 200px;
+  max-width: 40%;
+}
+
+.video-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1s ease;
+  opacity: 1;
+}
+
+.video-intro iframe {
+  width: 100%;
+  height: 100%;
+  max-height: 100vh;
+  max-width: 100vw;
+}
+
+.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}

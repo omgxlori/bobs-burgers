@@ -1,0 +1,121 @@
+.checkout-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.checkout-left, .checkout-right {
+  width: 45%;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.order-type-toggle {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.checkout-form input {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.no-tax-joke {
+  font-style: italic;
+  color: #666;
+  margin-top: 1rem;
+}
+
+.checkout-summary {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+  background-color: red;
+}
+
+input:checked + .slider {
+  background-color: yellow;
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+label {
+    color: black;
+}
+
+input {
+    background-color: white;
+    color: black;
+}
+
+.topping-list {
+  list-style: none;
+  padding-left: 1rem;
+  margin-top: 0.3rem;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.topping-item {
+  margin-bottom: 0.2rem;
+}
+
+.checkout-item-details {
+    color: black;
+    display: flex;
+    
+}
