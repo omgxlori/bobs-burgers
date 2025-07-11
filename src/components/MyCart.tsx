@@ -21,7 +21,7 @@ const MyCart = ({ onClose }: MyCartProps) => {
     api
       .menuCartList()
       .then((res) => {
-        setCart(res); // already parsed
+        setCart(res);
       })
       .catch(console.error);
   }, []);
