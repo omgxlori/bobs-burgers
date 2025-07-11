@@ -43,11 +43,11 @@ const MyCart = ({ onClose }: MyCartProps) => {
               .map((t) => t.id)
               .filter((id): id is number => typeof id === "number")
           ),
-          selectedOption:
-            typeof item.selectedOption === "object" &&
+          selectedOption: typeof item.selectedOption === "object" &&
             item.selectedOption !== null
-              ? item.selectedOption
-              : undefined,
+            ? item.selectedOption
+            : undefined,
+          price: undefined
         },
       })
       .then(() => {
